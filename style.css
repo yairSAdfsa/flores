@@ -1,9 +1,11 @@
 /* Estilos principales */
 :root{
-	--amarillo-1: #fff8e1;
-	--amarillo-2: #fff59d;
-	--acento: #f9a825;
-	--text: #3e2723;
+	--bg-1: #0b0220; /* casi negro púrpura */
+	--bg-2: #1b0033; /* morado oscuro */
+	--acento-1: #9b59ff; /* violeta brillante */
+	--acento-2: #6a00ff; /* morado profundo */
+	--text-light: #efe8ff;
+	--muted: #bfa6e6;
 }
 
 *{box-sizing:border-box}
@@ -11,27 +13,48 @@ html,body{height:100%}
 body{
 	margin:0;
 	font-family:'Quicksand', 'Segoe UI', sans-serif;
-	background: radial-gradient(circle at 10% 10%, #fffde7 0%, #fff8e1 30%, #fff3b0 60%);
-	color:var(--text);
+	background: radial-gradient(1200px circle at 10% 20%, rgba(110,40,180,0.12) 0%, rgba(20,10,40,0.6) 30%, rgba(3,1,12,1) 70%), linear-gradient(180deg, var(--bg-1), var(--bg-2));
+	color:var(--text-light);
 	overflow:hidden;
 }
 
 .scene{position:relative;min-height:100vh;}
-.hero{padding:40px 20px 10px}
-.titulo{font-family:'Great Vibes', cursive;font-size:3.2rem;margin:0;color:var(--acento);text-shadow:0 2px 8px rgba(249,168,37,0.25)}
-.sub{margin:8px 0 0;color:#6b4f28;opacity:0.9}
+.hero{padding:28px 20px 6px}
+.titulo{font-family:'Great Vibes', cursive;font-size:3.2rem;margin:0;color:var(--acento-1);text-shadow:0 6px 30px rgba(106,0,255,0.25)}
+.sub{margin:8px 0 0;color:var(--muted);opacity:0.95}
 
 #canvas-wrap{position:fixed;inset:0;z-index:0}
 
+/* Estrellas de fondo usando pseudo-elementos */
+.scene::before{
+		content:"";
+		position:fixed;inset:0;z-index:0;background-image:
+			radial-gradient(2px 2px at 10% 15%, rgba(255,255,255,0.9), transparent),
+			radial-gradient(1.4px 1.4px at 30% 40%, rgba(255,255,255,0.7), transparent),
+			radial-gradient(1.6px 1.6px at 65% 20%, rgba(255,255,255,0.8), transparent),
+			radial-gradient(1.2px 1.2px at 80% 75%, rgba(255,255,255,0.6), transparent);
+		opacity:0.9;mix-blend-mode:screen;pointer-events:none;
+}
+
+/* Nebulosa suave */
+.scene::after{
+		content:"";
+		position:fixed;left:-10%;top:-10%;width:120%;height:120%;pointer-events:none;z-index:0;
+		background: radial-gradient(circle at 20% 25%, rgba(155,89,255,0.12), transparent 8%),
+								radial-gradient(circle at 80% 60%, rgba(106,0,255,0.08), transparent 12%),
+								radial-gradient(circle at 60% 10%, rgba(100,50,160,0.06), transparent 20%);
+		filter: blur(40px);opacity:0.9;mix-blend-mode:screen;
+}
+
 .center-card{position: absolute;left:50%;top:55%;transform:translate(-50%,-50%);z-index:3;backdrop-filter: blur(6px);-webkit-backdrop-filter: blur(6px);}
-.card-content{background: linear-gradient(180deg, rgba(255,255,255,0.8), rgba(255,250,230,0.7));padding:22px 28px;border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,0.12);text-align:center;min-width:320px}
-#fraseBig{font-size:1.05rem;margin:0 0 12px;color:#4e342e}
+.card-content{background: linear-gradient(180deg, rgba(20,6,36,0.7), rgba(30,6,50,0.55));padding:18px 22px;border-radius:14px;box-shadow:0 12px 40px rgba(40,6,80,0.45);text-align:center;min-width:300px;border:1px solid rgba(150,80,255,0.12)}
+#fraseBig{font-size:1.05rem;margin:0 0 12px;color:var(--text-light)}
 
-.boton{background:linear-gradient(90deg,var(--amarillo-2),#ffd54f);border:none;padding:12px 20px;border-radius:12px;font-weight:700;cursor:pointer;box-shadow:0 6px 18px rgba(249,168,37,0.25);transition:transform .18s ease,box-shadow .18s}
-.boton:active{transform:translateY(2px)}
-.boton:hover{transform:translateY(-3px);box-shadow:0 14px 30px rgba(249,168,37,0.25)}
+.boton{background:linear-gradient(90deg,var(--acento-1),var(--acento-2));border:none;padding:12px 20px;border-radius:12px;font-weight:700;cursor:pointer;box-shadow:0 10px 28px rgba(106,0,255,0.18);transition:transform .18s ease,box-shadow .18s;border:1px solid rgba(255,255,255,0.04);color:var(--text-light)}
+.boton:active{transform:translateY(2px);opacity:0.95}
+.boton:hover{transform:translateY(-3px);box-shadow:0 20px 50px rgba(106,0,255,0.22)}
 
-.credits{position:fixed;right:18px;bottom:12px;font-size:.85rem;color:#6b4f28;z-index:4}
+.credits{position:fixed;right:18px;bottom:12px;font-size:.85rem;color:var(--muted);z-index:4}
 
 /* Pequeños destellos animados */
 .sparkle{position:absolute;border-radius:50%;pointer-events:none;mix-blend-mode:screen}

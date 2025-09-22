@@ -4,17 +4,22 @@
 let flores = [];
 let petalos = [];
 let confettis = [];
+let stars = [];
 let frases = [
-  "Eres mi sol en los días nublados 🌞",
-  "Tu sonrisa ilumina mi vida 💛",
+  "Eres mi sol en los días nublados ",
+  "Solo quiero que seas feliz, hoy y siempre.",
   "Si pudiera darte una flor por cada vez que pienso en ti, tendría un jardín infinito 🌸",
-  "Eres mi lugar favorito en el mundo 🌍",
-  "Cada día contigo es primavera 🌼",
-        "Eres la razón de mi felicidad 😊",
+  "Eres mi lugar favorito en el mundo ",
+  "Cada día contigo es primavera ",
+  "Eres la razón de mi felicidad ",
+  "Te extraño de una manera tan bonita, que hasta el silencio me habla de ti.",
+  "Si supieras cuánto me inspira tu sonrisa, entenderías por qué cada día quiero darte lo mejor de mí.",
+  "Me basta una mirada tuya para que el mundo entero deje de importar."
 ];
 
 let mostrar = false;
 let fraseActual = "";
+let fraseIndex = 0; // índice para mostrar frases de forma secuencial
 
 function setup() {
   // crear canvas con densidad de píxeles para pantallas HD
@@ -33,12 +38,17 @@ function setup() {
 
   for (let i = 0; i < flowerCount; i++) flores.push(new Flor());
   for (let i = 0; i < confettiCount; i++) confettis.push(new Confetti());
+  // generar algunas estrellas del fondo como partículas pequeñas
+  const starCount = windowWidth < 480 ? 30 : (windowWidth < 900 ? 60 : 120);
+  for (let i = 0; i < starCount; i++) stars.push(new Star());
 
   const btn = document.getElementById('btnSorpresa');
   const card = document.getElementById('centerCard');
   btn.addEventListener('click', () => {
     mostrar = true;
-    fraseActual = random(frases);
+    // mostrar la siguiente frase en orden secuencial
+    fraseActual = frases[fraseIndex];
+    fraseIndex = (fraseIndex + 1) % frases.length;
     document.getElementById('fraseBig').textContent = fraseActual;
     card.classList.add('show');
     // generar más confetti al mostrar (cantidad adaptativa)
@@ -60,6 +70,9 @@ function draw() {
 
   // confetti
   for (let c of confettis) { c.update(); c.show(); }
+
+  // estrellas del fondo
+  for (let s of stars) { s.update(); s.show(); }
 
   if (mostrar) {
     // dibujar una flor grande y centros con brillo
@@ -100,13 +113,14 @@ class Flor{
     push();
     translate(this.x, this.y);
     rotate(sin(this.ang)*0.2);
-    fill(255,235,59, 230);
+    // pétalos púrpuras espaciales
+    fill(155,89,255, 210);
     for (let i=0;i<7;i++){
       let a = TWO_PI/7*i;
-      ellipse(cos(a)*this.size, sin(a)*this.size, this.size, this.size*1.2);
+      ellipse(cos(a)*this.size, sin(a)*this.size, this.size, this.size*1.1);
     }
-    fill(255,193,7);
-    ellipse(0,0,this.size*1.1);
+    fill(106,0,255);
+    ellipse(0,0,this.size*1.0);
     pop();
   }
 }
@@ -116,7 +130,8 @@ class Confetti{
     this.x = random(width);
     this.y = spark? random(-50, height): random(-400, -10);
     this.size = random(6, 12);
-    this.col = color(random(200,255), random(150,230), random(90,200));
+    // colores morados/rosados
+    this.col = color(random(160,220), random(80,140), random(200,255));
     this.speed = random(1,4);
     this.rot = random(TWO_PI);
     this.spin = random(-0.08,0.08);
@@ -134,6 +149,31 @@ class Confetti{
     fill(this.col);
     rectMode(CENTER);
     rect(0,0,this.size,this.size*0.6,2);
+    pop();
+  }
+}
+
+// Partículas de estrella de fondo
+class Star{
+  constructor(){
+    this.x = random(width);
+    this.y = random(height);
+    this.r = random(0.4,1.6);
+    this.alpha = random(40,220);
+    this.twinkle = random(0.01,0.06);
+  }
+  update(){
+    // ligero parpadeo y desplazamiento sutil
+    this.alpha += sin(frameCount * this.twinkle) * 1.6;
+    if (this.alpha < 30) this.alpha = 30;
+    if (this.alpha > 255) this.alpha = 255;
+    this.x += sin(frameCount*0.0005 + this.r) * 0.02;
+  }
+  show(){
+    push();
+    noStroke();
+    fill(255, 230, 255, this.alpha * 0.9);
+    ellipse(this.x, this.y, this.r, this.r);
     pop();
   }
 }
