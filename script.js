@@ -6,12 +6,9 @@ let petalos = [];
 let confettis = [];
 let stars = [];
 let frases = [
-  "Eres mi sol en los días nublados ",
   "Solo quiero que seas feliz, hoy y siempre.",
   "Si pudiera darte una flor por cada vez que pienso en ti, tendría un jardín infinito 🌸",
-  "Eres mi lugar favorito en el mundo ",
   "Cada día contigo es primavera ",
-  "Eres la razón de mi felicidad ",
   "Te extraño de una manera tan bonita, que hasta el silencio me habla de ti.",
   "Si supieras cuánto me inspira tu sonrisa, entenderías por qué cada día quiero darte lo mejor de mí.",
   "Me basta una mirada tuya para que el mundo entero deje de importar."
