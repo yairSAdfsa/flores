@@ -1,0 +1,70 @@
+/* Estilos principales */
+:root{
+	--amarillo-1: #fff8e1;
+	--amarillo-2: #fff59d;
+	--acento: #f9a825;
+	--text: #3e2723;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+	margin:0;
+	font-family:'Quicksand', 'Segoe UI', sans-serif;
+	background: radial-gradient(circle at 10% 10%, #fffde7 0%, #fff8e1 30%, #fff3b0 60%);
+	color:var(--text);
+	overflow:hidden;
+}
+
+.scene{position:relative;min-height:100vh;}
+.hero{padding:40px 20px 10px}
+.titulo{font-family:'Great Vibes', cursive;font-size:3.2rem;margin:0;color:var(--acento);text-shadow:0 2px 8px rgba(249,168,37,0.25)}
+.sub{margin:8px 0 0;color:#6b4f28;opacity:0.9}
+
+#canvas-wrap{position:fixed;inset:0;z-index:0}
+
+.center-card{position: absolute;left:50%;top:55%;transform:translate(-50%,-50%);z-index:3;backdrop-filter: blur(6px);-webkit-backdrop-filter: blur(6px);}
+.card-content{background: linear-gradient(180deg, rgba(255,255,255,0.8), rgba(255,250,230,0.7));padding:22px 28px;border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,0.12);text-align:center;min-width:320px}
+#fraseBig{font-size:1.05rem;margin:0 0 12px;color:#4e342e}
+
+.boton{background:linear-gradient(90deg,var(--amarillo-2),#ffd54f);border:none;padding:12px 20px;border-radius:12px;font-weight:700;cursor:pointer;box-shadow:0 6px 18px rgba(249,168,37,0.25);transition:transform .18s ease,box-shadow .18s}
+.boton:active{transform:translateY(2px)}
+.boton:hover{transform:translateY(-3px);box-shadow:0 14px 30px rgba(249,168,37,0.25)}
+
+.credits{position:fixed;right:18px;bottom:12px;font-size:.85rem;color:#6b4f28;z-index:4}
+
+/* Pequeños destellos animados */
+.sparkle{position:absolute;border-radius:50%;pointer-events:none;mix-blend-mode:screen}
+
+/* Responsivo */
+@media (max-width:600px){.titulo{font-size:2.2rem}.card-content{min-width:260px;padding:16px}}
+
+/* Mejores reglas para móviles y tabletas */
+@media (max-width:900px){
+	.titulo{font-size:2.6rem}
+	.center-card{top:60%}
+	.card-content{min-width:280px;padding:18px}
+	#fraseBig{font-size:0.98rem}
+}
+
+@media (max-width:480px){
+	.titulo{font-size:1.9rem}
+	.sub{font-size:.95rem}
+	.center-card{top:62%}
+	.card-content{min-width:220px;padding:12px;border-radius:12px}
+	#fraseBig{font-size:0.9rem}
+	.boton{padding:10px 14px;font-size:.95rem}
+}
+
+/* reducir algunos efectos en modo móvil para rendimiento */
+@media (pointer: coarse){
+	.center-card{backdrop-filter:none}
+	.titulo{text-shadow:none}
+}
+
+/* Confetti (placeholder) */
+.confetti{position:fixed;inset:0;pointer-events:none;z-index:2}
+
+/* pequeña animación de entrada para la tarjeta */
+.center-card.show{animation:pop .6s cubic-bezier(.22,1,.36,1) both}
+@keyframes pop{from{transform:translate(-50%,-48%) scale(.92);opacity:0}to{transform:translate(-50%,-50%) scale(1);opacity:1}}
